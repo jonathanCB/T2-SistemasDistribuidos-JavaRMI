@@ -15,6 +15,10 @@ public class Connections {
         this.remoteHostName = remoteHostName;
         this.salesNumber = Integer.parseInt(salesNumber);
     }
+
+    /*
+     * Temos 3 métodos nessa classe: connectCatalog(), connectBilling() e connectWarehouse().
+     */
     
     //---------- Método que conecta com o servidor 'CATALOG' ----------
     public void connectCatalog() throws InterruptedException {
