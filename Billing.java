@@ -14,10 +14,13 @@ public class Billing extends UnicastRemoteObject implements BillingInterface{
 	}
 
     public static void main(String[] args) throws RemoteException{
+        
         if (args.length != 1) {
 			System.out.println("Usage: java Billing <server ip>");
 			System.exit(1);
 		}
+
+        //------------------- SUBINDO O SERVIDOR -----------------------
 
         try {
 			System.setProperty("java.rmi.server.hostname", args[0]);
@@ -66,17 +69,17 @@ public class Billing extends UnicastRemoteObject implements BillingInterface{
     //------------------- MÉTODOS DO SERVIÇO 'BILLING' -----------------------
 
     /*
-        Aqui simulamos a criação de usuário, onde recebemos um nome de 
-        usuário e retornamos uma mensagem de confirmação:
-    */
+     * Aqui simulamos a criação de usuário, onde recebemos um nome de 
+     * usuário e retornamos uma mensagem de confirmação:
+     */
     public String addUser(String user) throws RemoteException {
         return ("BILLING - ADD USER\n User '" + user + "' has been added.");
     }
 
     /*
-        O método 'createOrder' simula a criação de um pedido. Recebemos 
-        um 'product' como argumento e retornamos o "id" do pedido criado:
-    */ 
+     * O método 'createOrder' simula a criação de um pedido. 
+     * Retornamos o "id" do pedido criado:
+     */ 
     public String createOrder() throws RemoteException {
         //Gerando um número aleatório de 0 a 100 para simular o id de uma venda.
         Random random = new Random();
@@ -85,17 +88,16 @@ public class Billing extends UnicastRemoteObject implements BillingInterface{
     }
 
     /*
-        Método para receber a forma de pagamento desejada. Retorna uma 
-        mensagem de confirmação:
-    */
+     * Método para receber a forma de pagamento desejada. Retorna uma 
+     * mensagem de confirmação:
+     */
     public String addPaymentForm(String paymentForm) throws RemoteException {        
         return ("BILLING - ADD PAYMENT FORM\n Payment form added: " + paymentForm);
     }
 
     /*
-        Método que recebe o id do pedido e retorna o preço total desse
-        pedido:
-    */
+     * Método que retorna o preço total do pedido:
+     */
     public double calcOrder() throws RemoteException {
         Random random = new Random();
         double totalPrice = random.nextDouble() * 10000;
@@ -103,15 +105,15 @@ public class Billing extends UnicastRemoteObject implements BillingInterface{
     }
 
     /* -------------------------------------------------------------------------
-        Método que controla a 'venda'. Ele será responsável por retornar métodos
-        aleatórios do catálogo:
-    */
+     * Método que controla a 'venda'. Ele será responsável por retornar métodos
+     * aleatórios do catálogo:
+     */
     public String saleControl(int port) throws RemoteException {
         /*
-            Variáveis que controlarão o valor mínimo e o valor máximo
-            que nossa variável randomMethod irá variar. Com isso poderemos
-            retornar métodos aleatórios:
-        */
+         * Variáveis que controlarão o valor mínimo e o valor máximo
+         * que nossa variável randomMethod irá variar. Com isso poderemos
+         * retornar métodos aleatórios:
+         */
         int min = 1;
         int max = 4;
         int randomMethod = (int)Math.floor(Math.random()*(max-min+1)+min);

@@ -14,10 +14,13 @@ public class Warehouse extends UnicastRemoteObject implements WarehouseInterface
     }
 
     public static void main(String[] args) throws RemoteException{
+
         if (args.length != 1) {
 			System.out.println("Usage: java Warehouse <server ip>");
 			System.exit(1);
 		}
+
+        //------------------- SUBINDO O SERVIDOR -----------------------
 
         try {
 			System.setProperty("java.rmi.server.hostname", args[0]);
@@ -67,22 +70,22 @@ public class Warehouse extends UnicastRemoteObject implements WarehouseInterface
     //------------------- MÉTODOS DO SERVIÇO 'CATALOG' -----------------------
     
     /*
-        Método que "separa o pedido" no estoque.
-    */
+     * Método que "separa o pedido" do estoque:
+     */
     public String separateOrder(int orderId) throws RemoteException {
         return ("WAREHOUSE - SEPARATE ORDER\n Order [ID=" + orderId + "] separate for shipping.");
     }
 
     /*
-        Método que "gera a nota fiscal".
-    */
+     * Método que "gera a nota fiscal":
+     */
     public String generateInvoice(int orderId) throws RemoteException {
         return ("WAREHOUSE - GENERATE INVOICE\n Invoice for order [ID=" + orderId + "] generated.");
     }
 
     /*
-        Método que "envia o pedido".
-    */
+     * Método que "envia o pedido":
+     */
     public String sendOrder(int orderId) throws RemoteException {
         return ("WAREHOUSE - SEND ORDER\n Order [ID=" + orderId + "] dispatched.");
     }

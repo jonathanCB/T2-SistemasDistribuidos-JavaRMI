@@ -16,7 +16,7 @@ public class Connections {
         this.salesNumber = Integer.parseInt(salesNumber);
     }
     
-    //----- Método que conecta com o servidor 'CATALOG' -----
+    //---------- Método que conecta com o servidor 'CATALOG' ----------
     public void connectCatalog() throws InterruptedException {
         try {
             System.out.println("\n************************* CATALOG SERVER *************************");
@@ -49,21 +49,28 @@ public class Connections {
 
         int aux = 1;
 
-        //Laço que repete as vendas até o número de vendas que o client passou por parâmetro.
+        /*
+         * Laço que repete as vendas até o número de vendas que o client passou por parâmetro.
+         */
         while (aux <= salesNumber) {
             System.out.println(" \n*********** CATALOG ***********");
             System.out.println("------- Sale number [" + aux + "] -------");
-            int aux2 = 1;
-            int qtdMethods = salesNumber;
+            
+            int aux2 = 0;
             /*
-             * "Repita o laço enquanto 'aux2 = 1' for menor ou igual a variável
-             * (qtdMethods), que o usuário quer fazer."
-             * Esse laço servirá para repetirmos os métodos n vezes em cada venda.
+             * A variável "qtdMethods" servirá para controlar quantas vezes os métodos se repetirão 
+             * em cada venda.
+             */
+            int qtdMethods = 3;
+            /*
+             * "Repita o laço enquanto 'aux2' for menor ou igual a variável
+             * (qtdMethods)."
+             * Esse laço servirá para repetirmos os métodos 3 vezes em cada venda.
              */
             while (aux2 <= qtdMethods) {
                 try {
                     catalog.saleControl(Integer.parseInt(this.registry));
-                    System.out.println("\nCall to server CATALOG...");
+                    System.out.println("\nCall to server [CATALOG]...");
                     System.out.println("\n- Method [" + aux2 + "] -");
                     Thread.sleep(1000);
                 } catch (RemoteException e) {
@@ -86,7 +93,7 @@ public class Connections {
         }
     }
 
-    //----- Método que conecta com o servidor 'BILLING' -----
+    //----------Método que conecta com o servidor 'BILLING' ----------
     public void connectBilling() throws InterruptedException {
         try {
             System.out.println("\n************************* BILLING SERVER *************************");
@@ -122,8 +129,12 @@ public class Connections {
         while (aux <= salesNumber) {
             System.out.println(" \n*********** BILLING ***********");
             System.out.println("------- Sale number [" + aux + "] -------");
-            int aux2 = 1;
-            int qtdMethods = salesNumber;
+            int aux2 = 0;
+            /*
+             * A variável "qtdMethods" servirá para controlar quantas vezes os métodos se repetirão 
+             * em cada venda.
+             */
+            int qtdMethods = 3;
             /*
              * "Repita o laço enquanto 'aux2 = 1' for menor ou igual a variável
              * (qtdMethods), que o usuário quer fazer."
@@ -132,7 +143,7 @@ public class Connections {
             while (aux2 <= qtdMethods) {
                 try {
                     billing.saleControl(Integer.parseInt(this.registry));
-                    System.out.println("\nCall to server BILLING...");
+                    System.out.println("\nCall to server [BILLING]...");
                     System.out.println("\n- Method [" + aux2 + "] -");
                     Thread.sleep(1000);
                 } catch (RemoteException e) {
@@ -155,7 +166,7 @@ public class Connections {
         }
     }
 
-    //----- Método que conecta com o servidor 'WAREHOUSE' -----
+    //---------- Método que conecta com o servidor 'WAREHOUSE' ----------
     public void connectWarehouse() throws InterruptedException {
         try {
             System.out.println("\n************************* WAREHOUSE SERVER *************************");
@@ -191,8 +202,12 @@ public class Connections {
         while (aux <= salesNumber) {
             System.out.println(" \n*********** WAREHOUSE ***********");
             System.out.println("------- Sale number [" + aux + "] -------");
-            int aux2 = 1;
-            int qtdMethods = salesNumber;
+            int aux2 = 0;
+            /*
+             * A variável "qtdMethods" servirá para controlar quantas vezes os métodos se repetirão 
+             * em cada venda.
+             */
+            int qtdMethods = 3;
             /*
              * "Repita o laço enquanto 'aux2 = 1' for menor ou igual a variável
              * (qtdMethods), que o usuário quer fazer."
@@ -201,7 +216,7 @@ public class Connections {
             while (aux2 <= qtdMethods) {
                 try {
                     warehouse.saleControl(Integer.parseInt(this.registry));
-                    System.out.println("\nCall to server WAREHOUSE...");
+                    System.out.println("\nCall to server [WAREHOUSE]...");
                     System.out.println("\n- Method [" + aux2 + "] -");
                     Thread.sleep(1000);
                 } catch (RemoteException e) {
