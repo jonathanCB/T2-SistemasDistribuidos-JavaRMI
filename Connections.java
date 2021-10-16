@@ -48,6 +48,7 @@ public class Connections {
 
         int aux = 1;
 
+        //Laço que repete as vendas até o número de vendas que o client passou por parâmetro.
         while (aux <= salesNumber) {
             System.out.println(" \n*********** CATALOG ***********");
             System.out.println("------- Sale number [" + aux + "] -------");
