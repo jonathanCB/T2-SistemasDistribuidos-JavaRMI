@@ -143,7 +143,7 @@ public class Billing extends UnicastRemoteObject implements BillingInterface{
 
         //Retorna o método addPaymentForm().
         if (randomMethod == 3) {
-            sale = addPaymentForm("Credit card");
+            sale = addPaymentForm("Credit card.");
             return sale;
         }
 

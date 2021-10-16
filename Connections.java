@@ -56,7 +56,7 @@ public class Connections {
             System.out.println(" \n*********** CATALOG ***********");
             System.out.println("------- Sale number [" + aux + "] -------");
             
-            int aux2 = 0;
+            int aux2 = 1;
             /*
              * A variável "qtdMethods" servirá para controlar quantas vezes os métodos se repetirão 
              * em cada venda.
@@ -129,7 +129,7 @@ public class Connections {
         while (aux <= salesNumber) {
             System.out.println(" \n*********** BILLING ***********");
             System.out.println("------- Sale number [" + aux + "] -------");
-            int aux2 = 0;
+            int aux2 = 1;
             /*
              * A variável "qtdMethods" servirá para controlar quantas vezes os métodos se repetirão 
              * em cada venda.
@@ -202,7 +202,7 @@ public class Connections {
         while (aux <= salesNumber) {
             System.out.println(" \n*********** WAREHOUSE ***********");
             System.out.println("------- Sale number [" + aux + "] -------");
-            int aux2 = 0;
+            int aux2 = 1;
             /*
              * A variável "qtdMethods" servirá para controlar quantas vezes os métodos se repetirão 
              * em cada venda.
