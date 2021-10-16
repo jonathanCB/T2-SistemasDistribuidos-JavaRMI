@@ -19,6 +19,7 @@ public class Connections {
     //----- Método que conecta com o servidor 'CATALOG' -----
     public void connectCatalog() throws InterruptedException {
         try {
+            System.out.println("\n************************* CATALOG SERVER *************************");
             System.setProperty("java.rmi.server.hostname", this.property);
             LocateRegistry.createRegistry(Integer.parseInt(this.registry));
             System.out.println("java RMI registry created.");
@@ -62,7 +63,7 @@ public class Connections {
             while (aux2 <= qtdMethods) {
                 try {
                     catalog.saleControl(Integer.parseInt(this.registry));
-                    System.out.println("\nCall to server...");
+                    System.out.println("\nCall to server CATALOG...");
                     System.out.println("\n- Method [" + aux2 + "] -");
                     Thread.sleep(1000);
                 } catch (RemoteException e) {
@@ -88,6 +89,7 @@ public class Connections {
     //----- Método que conecta com o servidor 'BILLING' -----
     public void connectBilling() throws InterruptedException {
         try {
+            System.out.println("\n************************* BILLING SERVER *************************");
             System.setProperty("java.rmi.server.hostname", this.property);
             LocateRegistry.createRegistry(Integer.parseInt(this.registry));
             System.out.println("java RMI registry created.");
@@ -130,7 +132,7 @@ public class Connections {
             while (aux2 <= qtdMethods) {
                 try {
                     billing.saleControl(Integer.parseInt(this.registry));
-                    System.out.println("\nCall to server...");
+                    System.out.println("\nCall to server BILLING...");
                     System.out.println("\n- Method [" + aux2 + "] -");
                     Thread.sleep(1000);
                 } catch (RemoteException e) {
@@ -148,6 +150,75 @@ public class Connections {
              */
             if (aux == salesNumber) {
                 return;
+            }
+            aux++;
+        }
+    }
+
+    //----- Método que conecta com o servidor 'WAREHOUSE' -----
+    public void connectWarehouse() throws InterruptedException {
+        try {
+            System.out.println("\n************************* WAREHOUSE SERVER *************************");
+            System.setProperty("java.rmi.server.hostname", this.property);
+            LocateRegistry.createRegistry(Integer.parseInt(this.registry));
+            System.out.println("java RMI registry created.");
+        } catch (RemoteException e) {
+            System.out.println("java RMI registry already exists.");
+        }
+
+        try {
+            String client = "rmi://" + this.property + ":" + this.registry + "/Warehouse2";
+            Naming.rebind(client, new Client());
+            System.out.println("Warehouse Server is ready.");
+        } catch (Exception e) {
+            System.out.println("Warehouse Server failed: " + e);
+        }
+
+        String remoteHostName = this.remoteHostName;
+        String connectLocation = "rmi://" + remoteHostName + ":40036/Warehouse";
+
+        WarehouseInterface warehouse = null;
+        try {
+            System.out.println("Connecting to server at : " + connectLocation);
+            warehouse = (WarehouseInterface) Naming.lookup(connectLocation);
+        } catch (Exception e) {
+            System.out.println("Client failed: ");
+            e.printStackTrace();
+        }
+
+        int aux = 1;
+
+        while (aux <= salesNumber) {
+            System.out.println(" \n*********** WAREHOUSE ***********");
+            System.out.println("------- Sale number [" + aux + "] -------");
+            int aux2 = 1;
+            int qtdMethods = salesNumber;
+            /*
+             * "Repita o laço enquanto 'aux2 = 1' for menor ou igual a variável
+             * (qtdMethods), que o usuário quer fazer."
+             * Esse laço servirá para repetirmos os métodos n vezes em cada venda.
+             */
+            while (aux2 <= qtdMethods) {
+                try {
+                    warehouse.saleControl(Integer.parseInt(this.registry));
+                    System.out.println("\nCall to server WAREHOUSE...");
+                    System.out.println("\n- Method [" + aux2 + "] -");
+                    Thread.sleep(1000);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                }
+                aux2++;
+            }
+            /*
+             * Sair do programa quando o número de vendas setado pelo usuário for
+             * contemplado.
+             */
+            if (aux == salesNumber) {
+                System.exit(0);
             }
             aux++;
         }

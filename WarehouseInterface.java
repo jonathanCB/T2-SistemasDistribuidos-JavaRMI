@@ -8,4 +8,6 @@ public interface WarehouseInterface extends Remote {
     public String generateInvoice(int orderId) throws RemoteException;
 
     public String sendOrder(int orderId) throws RemoteException;
+
+    public String saleControl(int port) throws RemoteException;
 }

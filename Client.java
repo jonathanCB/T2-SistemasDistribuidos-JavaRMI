@@ -14,7 +14,7 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
         */ 
         String catalogPort = "20036";
         String billingPort = "30036";
-        String warehousePort = "";
+        String warehousePort = "40036";
         
         if (args.length != 3) {
             System.out.println("Usage: java Client <server ip> <client ip> <sales number>");
@@ -31,7 +31,10 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
         catalog.connectCatalog();     
         
         Connections billing = new Connections(args[1], billingPort, args[0], args[2]);
-        billing.connectBilling();          
+        billing.connectBilling();   
+        
+        Connections warehouse = new Connections(args[1], warehousePort, args[0], args[2]);
+        warehouse.connectWarehouse();  
     }
 
     @Override
