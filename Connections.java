@@ -9,13 +9,14 @@ public class Connections {
     String remoteHostName;
     int salesNumber;
 
-    public Connections(String property, String registry, String remoteHostName, String salesNumber) {
+    public Connections(String property, String registryCatalog, String remoteHostName, String salesNumber) {
         this.property = property;
-        this.registry = registry;
+        this.registry = registryCatalog;
         this.remoteHostName = remoteHostName;
         this.salesNumber = Integer.parseInt(salesNumber);
     }
     
+    //----- Método que conecta com o servidor 'CATALOG' -----
     public void connectCatalog() throws InterruptedException {
         try {
             System.setProperty("java.rmi.server.hostname", this.property);
@@ -48,11 +49,12 @@ public class Connections {
         int aux = 1;
 
         while (aux <= salesNumber) {
-            System.out.println("\n------- Sale number [" + aux + "] -------");
+            System.out.println(" \n*********** CATALOG ***********");
+            System.out.println("------- Sale number [" + aux + "] -------");
             int aux2 = 1;
             int qtdMethods = salesNumber;
             /*
-             * "Repita o laço enquanto 'aux2=1' for menor ou igual a variável
+             * "Repita o laço enquanto 'aux2 = 1' for menor ou igual a variável
              * (qtdMethods), que o usuário quer fazer."
              * Esse laço servirá para repetirmos os métodos n vezes em cada venda.
              */
@@ -76,7 +78,75 @@ public class Connections {
              * contemplado.
              */
             if (aux == salesNumber) {
-                System.exit(0);
+                return;
+            }
+            aux++;
+        }
+    }
+
+    //----- Método que conecta com o servidor 'BILLING' -----
+    public void connectBilling() throws InterruptedException {
+        try {
+            System.setProperty("java.rmi.server.hostname", this.property);
+            LocateRegistry.createRegistry(Integer.parseInt(this.registry));
+            System.out.println("java RMI registry created.");
+        } catch (RemoteException e) {
+            System.out.println("java RMI registry already exists.");
+        }
+
+        try {
+            String client = "rmi://" + this.property + ":" + this.registry + "/Billing2";
+            Naming.rebind(client, new Client());
+            System.out.println("Billing Server is ready.");
+        } catch (Exception e) {
+            System.out.println("Billing Server failed: " + e);
+        }
+
+        String remoteHostName = this.remoteHostName;
+        String connectLocation = "rmi://" + remoteHostName + ":30036/Billing";
+
+        BillingInterface billing = null;
+        try {
+            System.out.println("Connecting to server at : " + connectLocation);
+            billing = (BillingInterface) Naming.lookup(connectLocation);
+        } catch (Exception e) {
+            System.out.println("Client failed: ");
+            e.printStackTrace();
+        }
+
+        int aux = 1;
+
+        while (aux <= salesNumber) {
+            System.out.println(" \n*********** BILLING ***********");
+            System.out.println("------- Sale number [" + aux + "] -------");
+            int aux2 = 1;
+            int qtdMethods = salesNumber;
+            /*
+             * "Repita o laço enquanto 'aux2 = 1' for menor ou igual a variável
+             * (qtdMethods), que o usuário quer fazer."
+             * Esse laço servirá para repetirmos os métodos n vezes em cada venda.
+             */
+            while (aux2 <= qtdMethods) {
+                try {
+                    billing.saleControl(Integer.parseInt(this.registry));
+                    System.out.println("\nCall to server...");
+                    System.out.println("\n- Method [" + aux2 + "] -");
+                    Thread.sleep(1000);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                }
+                aux2++;
+            }
+            /*
+             * Sair do programa quando o número de vendas setado pelo usuário for
+             * contemplado.
+             */
+            if (aux == salesNumber) {
+                return;
             }
             aux++;
         }

@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Random;
 
 public class Catalog extends UnicastRemoteObject implements CatalogInterface{
+    
     private static volatile String sale;
     private static volatile boolean changed;
 	private static volatile String remoteHostName, remoteHostPort;
@@ -61,6 +62,8 @@ public class Catalog extends UnicastRemoteObject implements CatalogInterface{
 			} catch (InterruptedException ex) {}
         }
     }
+
+    //------------------- MÉTODOS DO SERVIÇO 'CATALOG' -----------------------
 
     /* -------------------------------------------------------------------------
         Método que 'lista' todos os itens do catálogo:
