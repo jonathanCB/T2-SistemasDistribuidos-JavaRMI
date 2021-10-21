@@ -67,7 +67,7 @@ public class Warehouse extends UnicastRemoteObject implements WarehouseInterface
     }
 
 
-    //------------------- MÉTODOS DO SERVIÇO 'CATALOG' -----------------------
+    //------------------- MÉTODOS DO SERVIÇO 'WAREHOUSE' -----------------------
     
     /*
      * Método que "separa o pedido" do estoque:
